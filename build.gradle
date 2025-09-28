@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.5.6'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id "org.sonarqube" version "6.3.1.5724"
 }
 
 group = 'wigm'
@@ -103,4 +104,10 @@ configurations {
 bootJar {
 	archiveBaseName = 'pokemon-web-service'
 	archiveVersion =  '0.1.0'
+}
+sonar {
+	properties {
+		property "sonar.projectKey", "ivangm25-dev_pokemon"
+		property "sonar.organization", "ivangm25-dev"
+	}
 }
