@@ -72,5 +72,4 @@ public class PokemonClientImplTest {
         String name= response.get("name").toString();
         Assertions.assertEquals(name, "\"charmander\"");
     }
-    git a
 }
