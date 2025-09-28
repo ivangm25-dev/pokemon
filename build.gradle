@@ -1,0 +1,106 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.5.6'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'wigm'
+version = '0.0.2-SNAPSHOT'
+description = 'Api Pokemon'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+sourceSets {
+	main {
+		java {
+			srcDir 'src/main/java'
+			srcDir 'build/generated-sources/jaxb'
+		}
+	}
+}
+
+task genJaxb {
+	ext.sourcesDir = "${buildDir}/generated-sources/jaxb"
+	ext.schema = "src/main/resources/pokemon.xsd"
+
+
+	outputs.dir sourcesDir
+
+	doLast() {
+		project.ant {
+			taskdef name: "xjc", classname: "com.sun.tools.xjc.XJCTask",
+					classpath: configurations.jaxb.asPath
+			mkdir(dir: sourcesDir)
+			ant.xjc(
+					schema: schema,
+					destdir: sourcesDir,
+					encoding: 'UTF-8'
+			)
+		}
+	}
+}
+
+task cucumberCli() {
+	dependsOn assemble, testClasses
+	doLast {
+		javaexec {
+			main = "io.cucumber.core.cli.Main"
+			classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+			args = [
+					'--plugin', 'pretty',
+					'--plugin', 'html:target/cucumber-report.html',
+					'--glue', 'com.baeldung.cucumber',
+					'src/test/resources']
+		}
+	}
+}
+
+compileJava.dependsOn genJaxb
+
+configurations {
+	jaxb
+	cucumberRuntime {
+		extendsFrom testImplementation
+	}
+}
+
+bootJar {
+	archiveBaseName = 'pokemon-ws'
+	archiveVersion =  '0.1.0'
+}
+
+dependencies {
+	annotationProcessor 'org.projectlombok:lombok'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-web-services'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	implementation 'wsdl4j:wsdl4j'
+	jaxb("org.glassfish.jaxb:jaxb-xjc")
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testImplementation 'junit:junit:4.13.1'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'io.cucumber:cucumber-java:6.10.4'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+configurations {
+	jaxb
+}
+
+bootJar {
+	archiveBaseName = 'pokemon-web-service'
+	archiveVersion =  '0.1.0'
+}
