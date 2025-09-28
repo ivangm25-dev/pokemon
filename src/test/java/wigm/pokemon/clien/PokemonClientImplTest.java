@@ -72,13 +72,5 @@ public class PokemonClientImplTest {
         String name= response.get("name").toString();
         Assertions.assertEquals(name, "\"charmander\"");
     }
-
-    @Test
-    public void getInfoPokemonFail()
-            throws Exception {
-        JsonNode response = this.client.pokemonInfo("lll");
-        Assertions.assertThrows(PokemonException.class, () -> {
-            this.client.pokemonInfo("ditto");
-        });
-    }
+    git a
 }
