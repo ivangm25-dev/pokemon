@@ -17,7 +17,7 @@ import wigm.pokemon.exception.ServiceFailException;
 public class PokemonServiceImpl implements PokemonService{
 
     private PokemonClient pokemonClient;
-    private  ObjectMapper mapper;
+    private ObjectMapper mapper;
 
     public PokemonServiceImpl(PokemonClient pokemonClient, ObjectMapper mapper){
         this.pokemonClient = pokemonClient;

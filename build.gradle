@@ -59,7 +59,7 @@ task cucumberCli() {
 					'--plugin', 'pretty',
 					'--plugin', 'html:target/cucumber-report.html',
 					'--glue', 'com.baeldung.cucumber',
-					'src/test/resources']
+					'src/test/resources/features']
 		}
 	}
 }
