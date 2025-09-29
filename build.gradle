@@ -110,5 +110,7 @@ sonar {
 	properties {
 		property "sonar.projectKey", "ivangm25-dev_pokemon"
 		property "sonar.organization", "ivangm25-dev"
+		property("sonar.host.url", "https://sonarcloud.io")
+
 	}
 }

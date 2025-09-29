@@ -25,6 +25,4 @@ public class PokemonClientImpl implements PokemonClient {
                 .body(JsonNode.class);
         return result;
     }
-
-
 }
