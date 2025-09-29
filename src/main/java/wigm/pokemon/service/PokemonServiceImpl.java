@@ -62,7 +62,6 @@ public class PokemonServiceImpl implements PokemonService{
             GetHeldItemsResponse response =
                     mapper.convertValue(pokemonClient.pokemonInfo(name),
                             GetHeldItemsResponse.class);
-
             return response;
 
         }catch (Exception exception){
@@ -106,8 +105,7 @@ public class PokemonServiceImpl implements PokemonService{
         try {
             GetLocationResponse response =
                     mapper.convertValue(pokemonClient.pokemonInfo(name),
-                            GetLocationResponse.class);
-
+                            GetLocationResponse.class);;
             return response;
 
         }catch (Exception exception){

@@ -60,12 +60,17 @@
     <xs:element name="getHeldItemsResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="item" type="tns:genericComponent"/>
-                <xs:element name="version_details" type="tns:versionDetails" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="held_items" type="tns:heldItems" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
+    <xs:complexType name="heldItems">
+        <xs:sequence>
+            <xs:element name="item" type="tns:genericComponent"/>
+            <xs:element name="version_details" type="tns:versionDetails" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
     <xs:complexType name="versionDetails">
         <xs:sequence>
             <xs:element name="rate" type="xs:int"/>
